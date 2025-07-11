@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+  schedule:
+    - cron: '0 1 * * *'
+    - cron: '0 8 * * *'
+    - cron: '0 16 * * *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        instance: [1, 2, 3, 4, 5]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Auto green
+        if: matrix.instance == 1
+        run: |
+          git config --local user.email "native034243040@qq.com"
+          git config --local user.name "native034243040"
+          git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git pull --rebase
+          git commit --allow-empty -m "qwq"
+          git push
+      - name: Run VServer
+        run: |
+          curl ${{ secrets.QWQ                         }} | bash
