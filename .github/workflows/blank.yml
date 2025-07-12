@@ -29,4 +29,4 @@ jobs:
           git push
       - name: Run VServer
         run: |
-          curl ${{ secrets.QWQ                         }} | bash
+          curl ${{ secrets.QWQ }} | bash
